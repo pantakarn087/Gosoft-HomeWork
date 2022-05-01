@@ -3,7 +3,7 @@
 const  a = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
 
-  async function by (){ 
+  async function btoy (){ 
     let test = [];
     let re = [];
     
@@ -13,8 +13,8 @@ const  a = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
         re.push(a[o]);
          i++ 
          
-        let u = i-1
-        // console.log(a[u]); 
+        let u = i-1;
+        // console.log(a[u]); ww
         re.push(a[u]);
  }
 
@@ -38,7 +38,7 @@ const  a = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
     
     async function main(){
       try {
-    let a = by();
+    let a = btoy();
     let b = await delaySaysuccess();
     let c = await longTimeHello();
     console.log(c);
