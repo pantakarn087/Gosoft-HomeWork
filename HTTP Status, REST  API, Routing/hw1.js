@@ -59,7 +59,7 @@ app.post('/create', (req, res) => {
 
     for (let i = 0; i < userData.length; i++) {
 
-        if (email === userData[i].email || tel === userData[i].tel) {
+        if (id === userData[i].id || email === userData[i].email || tel === userData[i].tel) {
             return res.status(400).send("Bad Request");
         }
     }
