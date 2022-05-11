@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const mysql = require('mysql2');
-
+const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
 const jwt =require("jsonwebtoken")
 
 app.use(express.json());
@@ -26,24 +26,40 @@ data.query('select * from employee1',(err,result)=>{
     console.log(err,result)
 })
 
+app.use((req,res,next)=>{
+        if(req.path == "/login")return next()
+
+
+    const token =req.headers.authorization
+
+    if(!token) return res.json({msg:"error no information"})
+    
+    try {
+             jwt.verify(token.split(' ')[1],key)
+             next()
+        } catch (error) {
+            return res.json({msg:"error no information"})
+        }
+    
+
+})
+
 app.post('/login', (req, res) => {   
     
 
     if(req.body.username == "test" && req.body.password == "1234"){
 
-        const token = jwt.sign({username: "test"},"123654")
+        const token = jwt.sign({username: "test"},key)
         
       
-        return res.json(token)
+        return res.json({token})
 
     } 
 
         return res.status(400).send("error")
     
 
-    
 })
-
 
 app.get('/getData', (req, res) => {
 
@@ -117,7 +133,7 @@ app.delete('/delete', (req, res) => {
     data.query(`DELETE from employee1 WHERE id = '${req.body.id}'`, (err,rows) =>{
            
         if(err){
-                   console.log(err)
+            return res.status(400).send(error)
         }else{
             
             res.send('DELETE Success')
